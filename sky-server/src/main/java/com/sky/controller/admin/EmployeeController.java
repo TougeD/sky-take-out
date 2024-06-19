@@ -35,6 +35,22 @@ public class EmployeeController {
     @Autowired
     private JwtProperties jwtProperties;
 
+    @GetMapping("/{id}")
+    @ApiOperation(value = "根据id查询员工")
+    public Result<Employee> queryById(@PathVariable String id){
+        log.info("要查询员工的id为：{}",id);
+        Employee employee = employeeService.queryById(id);
+        return Result.success(employee);
+    }
+
+    @PutMapping
+    @ApiOperation(value = "编辑员工信息")
+    public Result updateEmp(@RequestBody EmployeeDTO employeeDTO){
+        log.info("要编辑员工的信息：{}",employeeDTO);
+        employeeService.updateById(employeeDTO);
+        return Result.success();
+    }
+
     @PostMapping("status/{status}")
     @ApiOperation(value = "启用、禁用员工账号")
     public Result status(@RequestParam(value = "id",required = true) Long id,
