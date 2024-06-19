@@ -30,6 +30,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeMapper employeeMapper;
 
     /**
+     * 启用、禁用员工账号
+     * @param id
+     * @param status
+     */
+    @Override
+    public void updateStatusById(Long id, Integer status) {
+        Employee employee = new Employee();
+        employee.setStatus(status);
+        employee.setId(id);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employeeMapper.updateById(employee);
+    }
+
+    /**
      * 员工分页查询
      * @param employeePageQueryDTO
      * @return

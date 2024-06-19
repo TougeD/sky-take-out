@@ -35,6 +35,14 @@ public class EmployeeController {
     @Autowired
     private JwtProperties jwtProperties;
 
+    @PostMapping("status/{status}")
+    @ApiOperation(value = "启用、禁用员工账号")
+    public Result status(@RequestParam(value = "id",required = true) Long id,
+                         @PathVariable(value = "status") Integer status){
+        log.info("要修改的员工状态为:{}",status);
+        employeeService.updateStatusById(id,status);
+        return Result.success();
+    }
 
     /**
      * 员工分页查询
